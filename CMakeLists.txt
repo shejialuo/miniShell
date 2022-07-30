@@ -23,7 +23,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-
 # In ArchLinux, it is easy to install the spdlog.
 # Here we use the pre-compiled library.
 # ---------------------------------------------------------------------------------------
@@ -32,13 +31,18 @@ FetchContent_MakeAvailable(googletest)
 # add_executable(example example.cpp)
 # target_link_libraries(example PRIVATE spdlog::spdlog)
 # See https://github.com/gabime/spdlog/blob/v1.x/example/CMakeLists.txt
-
 if(NOT TARGET spdlog)
-    find_package(spdlog REQUIRED)
+  find_package(spdlog REQUIRED)
 endif()
 
-if (DOXYGEN_FOUND)
+# See https://cmake.org/cmake/help/latest/module/FindDoxygen.html
+find_package(Doxygen
+  REQUIRED dot
+  OPTIONAL_COMPONENTS mscgen dia)
+
+if(DOXYGEN_FOUND)
   set(DOXYGEN_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/docs)
+
   # Here we must make Doxygen do not generate
   # the docs for dependency
   # See https://cmake.org/cmake/help/latest/module/FindDoxygen.html#variable:DOXYGEN_EXCLUDE_PATTERNS
@@ -68,3 +72,4 @@ else()
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif()
 
+add_subdirectory(./util)

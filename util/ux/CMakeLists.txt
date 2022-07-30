@@ -1,0 +1,1 @@
+add_library(util_ux STATIC ux.cpp ux.hpp uxprocess.hpp)
