@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(miniShell LANGUAGES CXX)
 
-# GoogleTest requires are least C++14
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # Here, we must include the CTest, because we
 # call `enabletesting` internally.
@@ -21,7 +20,12 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
 )
-FetchContent_MakeAvailable(googletest)
+FetchContent_Declare(
+  spdlog
+  GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  GIT_TAG v1.x
+)
+FetchContent_MakeAvailable(googletest spdlog)
 
 
 # In ArchLinux, it is easy to install the spdlog.
@@ -68,3 +72,4 @@ else()
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif()
 
+add_executable(miniShell miniShell.cpp)
