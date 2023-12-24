@@ -41,6 +41,11 @@ if(NOT TARGET spdlog)
     find_package(spdlog REQUIRED)
 endif()
 
+# See https://cmake.org/cmake/help/latest/module/FindDoxygen.html
+find_package(Doxygen
+  REQUIRED dot
+  OPTIONAL_COMPONENTS mscgen dia)
+
 if (DOXYGEN_FOUND)
   set(DOXYGEN_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/docs)
   # Here we must make Doxygen do not generate
@@ -73,3 +78,7 @@ else()
 endif()
 
 add_executable(miniShell miniShell.cpp)
+target_link_libraries(miniShell PRIVATE parser)
+
+add_subdirectory(./parser)
+add_subdirectory(./command)

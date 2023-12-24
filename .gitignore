@@ -36,3 +36,6 @@ build/
 
 # DOXYGEN
 docs/
+
+# Ignore clangd
+.cache
