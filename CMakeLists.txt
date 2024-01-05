@@ -77,8 +77,11 @@ else()
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif()
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 add_executable(miniShell miniShell.cpp)
 target_link_libraries(miniShell PRIVATE parser)
 
 add_subdirectory(./parser)
 add_subdirectory(./command)
+add_subdirectory(./builtins)

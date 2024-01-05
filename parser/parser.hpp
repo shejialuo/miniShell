@@ -33,8 +33,7 @@ private:
    *
    * @return whether the parse is OK
    */
-  bool parseHelper(const std::string &script, int start, int end,
-                   std::vector<std::unique_ptr<CommandBase>> &commands);
+  bool parseHelper(const std::string &script, int start, int end, std::vector<std::unique_ptr<CommandBase>> &commands);
 
 public:
   Parser() = default;

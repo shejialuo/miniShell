@@ -5,7 +5,9 @@
 #include <string>
 #include <vector>
 
-bool Parser::parseHelper(const std::string &script, int start, int end,
+bool Parser::parseHelper(const std::string &script,
+                         int start,
+                         int end,
                          std::vector<std::unique_ptr<CommandBase>> &commands) {
   bool firstWord = true;
 
@@ -25,8 +27,7 @@ bool Parser::parseHelper(const std::string &script, int start, int end,
 
     int wordEnd = wordStart;
 
-    while (wordEnd < script.size() && script[wordEnd] != ' ' &&
-           script[wordEnd] != '>' && script[wordEnd] != '<') {
+    while (wordEnd < script.size() && script[wordEnd] != ' ' && script[wordEnd] != '>' && script[wordEnd] != '<') {
       wordEnd++;
     }
 
@@ -98,8 +99,7 @@ bool Parser::parseHelper(const std::string &script, int start, int end,
   }
 
   commands.emplace_back(
-      std::make_unique<Command>(std::move(command), std::move(arguments),
-                                std::move(redirectFile), status));
+      std::make_unique<Command>(std::move(command), std::move(arguments), std::move(redirectFile), status));
 
   return true;
 }

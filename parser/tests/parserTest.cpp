@@ -22,7 +22,13 @@ TEST(Parser, parserFailed) {
   Parser parser{};
 
   std::vector<std::string> failed{
-      "=", "a=", "=b", "command |", "| command", "| | |", "= = =",
+      "=",
+      "a=",
+      "=b",
+      "command |",
+      "| command",
+      "| | |",
+      "= = =",
   };
 
   for (auto &&f : failed) {

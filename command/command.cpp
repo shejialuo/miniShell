@@ -1,14 +1,29 @@
 #include "command.hpp"
 
+#include "builtins/builtins.hpp"
+
 #include <iostream>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <unordered_set>
 #include <vector>
 
 void Variable::execute() {}
 
+std::unordered_map<std::string, std::function<bool(std::vector<std::string> &)>> Command::builtins{
+    {"cd", Builtins::cdHandler},
+    {"pwd", Builtins::pwdHandler},
+    {"exit", Builtins::exitHandler},
+    {"echo", Builtins::echoHandler},
+};
+
 void Command::execute() {
+  if (builtins.count(command)) {
+    builtins[command](arguments);
+    return;
+  }
+
   pid_t pid = fork();
   if (pid == -1) {
     std::cout << "[fork error]: cannot fork\n";

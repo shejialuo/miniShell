@@ -1,3 +1,4 @@
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -80,11 +81,15 @@ private:
   RedirectStatus redirectStatus;
 
 public:
+  static std::unordered_map<std::string, std::function<bool(std::vector<std::string> &)>> builtins;
+
   Command() = delete;
-  Command(std::string &&c, std::vector<std::string> &&ar,
-          std::optional<std::string> &&rf, RedirectStatus status)
-      : CommandBase{}, command{std::move(c)}, arguments{std::move(ar)},
-        redirectFile{std::move(rf)}, redirectStatus{status} {}
+  Command(std::string &&c, std::vector<std::string> &&ar, std::optional<std::string> &&rf, RedirectStatus status)
+      : CommandBase{}
+      , command{std::move(c)}
+      , arguments{std::move(ar)}
+      , redirectFile{std::move(rf)}
+      , redirectStatus{status} {}
 
   virtual void execute() final;
   virtual std::string inspect() final {
@@ -109,8 +114,7 @@ private:
 
 public:
   PipeCommand() = delete;
-  PipeCommand(std::vector<std::unique_ptr<CommandBase>> &&c)
-      : commands{std::move(c)} {}
+  PipeCommand(std::vector<std::unique_ptr<CommandBase>> &&c) : commands{std::move(c)} {}
 
   virtual void execute() final;
   virtual std::string inspect() final {
