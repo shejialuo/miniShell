@@ -9,7 +9,8 @@ jobs:
     strategy:
       matrix:
         path:
-          - "util"
+          - "command"
+          - "parser"
     steps:
       - uses: actions/checkout@v3
       - name: Run clang-format style check for C/C++/Protobuf programs.

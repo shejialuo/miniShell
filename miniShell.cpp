@@ -17,12 +17,16 @@ void start(std::istream &is, bool isFile = false) {
     std::string script{};
     std::getline(is, script);
 
-    if (script.empty()) {
+    if (is.eof()) {
       return;
     }
 
     if (!script.empty() && script.back() == '\n') {
       script.erase(script.length() - 1);
+    }
+
+    if (script.empty()) {
+      continue;
     }
 
     auto command = parser.parseScript(script);
